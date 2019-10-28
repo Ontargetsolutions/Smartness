@@ -6,15 +6,11 @@ import {
     auth,
     facebookAuthProvider,
     googleAuthProvider,
-    twitterAuthProvider,
-    githubAuthProvider
 } from '../firebase';
 import {
     LOGIN_USER,
     LOGIN_FACEBOOK_USER,
     LOGIN_GOOGLE_USER,
-    LOGIN_TWITTER_USER,
-    LOGIN_GITHUB_USER,
     LOGOUT_USER,
     SIGNUP_USER
 } from 'Actions/types';
@@ -22,10 +18,10 @@ import {
 import {
     signinUserSuccess,
     signinUserFailure,
-    signUpUserInFirebaseSuccess,
-    signUpUserInFirebaseFailure,
-    logoutUserFromFirebaseSuccess,
-    logoutUserFromFirebaseFailure
+    signUpUserInMySQLSuccess,
+    signUpUserInMySQLFailure,
+    logoutUserFromMySQLSuccess,
+    logoutUserFromMySQLFailure
 } from 'Actions';
 
 /**
@@ -49,22 +45,6 @@ const signInUserWithFacebookRequest = async () =>
 */
 const signInUserWithGoogleRequest = async () =>
     await auth.signInWithPopup(googleAuthProvider)
-        .then(authUser => authUser)
-        .catch(error => error);
-
-/**
-* Signin User With Twitter Request
-*/
-const signInUserWithTwitterRequest = async () =>
-    await auth.signInWithPopup(twitterAuthProvider)
-        .then(authUser => authUser)
-        .catch(error => error);
-
-/**
-* Signin User With Github Request
-*/
-const signInUserWithGithubRequest = async () =>
-    await auth.signInWithPopup(githubAuthProvider)
         .then(authUser => authUser)
         .catch(error => error);
 
@@ -139,56 +119,20 @@ function* signinUserWithGoogleAccount({ payload }) {
 }
 
 /**
- * Signin User With Twitter Account
- */
-function* signinUserWithTwitterAccount({ payload }) {
-    try {
-        const signUpUser = yield call(signInUserWithTwitterRequest);
-        if (signUpUser.message) {
-            yield put(signinUserFailure(signUpUser.message));
-        } else {
-            localStorage.setItem('user_id', signUpUser.uid);
-            yield put(signinUserSuccess(signUpUser));
-            payload.push('/')
-        }
-    } catch (error) {
-        yield put(signinUserFailure(error));
-    }
-}
-
-/**
- * Signin User With Github Account
- */
-function* signinUserWithGithubAccount({ payload }) {
-    try {
-        const signUpUser = yield call(signInUserWithGithubRequest);
-        if (signUpUser.message) {
-            yield put(signinUserFailure(signUpUser.message));
-        } else {
-            localStorage.setItem('user_id', signUpUser.uid);
-            yield put(signinUserSuccess(signUpUser));
-            payload.push('/')
-        }
-    } catch (error) {
-        yield put(signinUserFailure(error));
-    }
-}
-
-/**
  * Signout User
  */
 function* signOut() {
     try {
         yield call(signOutRequest);
         localStorage.removeItem('user_id');
-        yield put(logoutUserFromFirebaseSuccess())
+        yield put(logoutUserFromMySQLSuccess())
     } catch (error) {
-        yield put(logoutUserFromFirebaseFailure());
+        yield put(logoutUserFromMySQLFailure());
     }
 }
 
 /**
- * Create User In Firebase
+ * Create User In MySQL
  */
 function* createUserWithEmailPassword({ payload }) {
     const { email, password } = payload.user;
@@ -196,21 +140,21 @@ function* createUserWithEmailPassword({ payload }) {
     try {
         const signUpUser = yield call(createUserWithEmailPasswordRequest, email, password);
         if (signUpUser.message) {
-            yield put(signUpUserInFirebaseFailure(signUpUser.message));
+            yield put(signUpUserInMySQLFailure(signUpUser.message));
         } else {
             localStorage.setItem('user_id', signUpUser.uid);
-            yield put(signUpUserInFirebaseSuccess(signUpUser));
+            yield put(signUpUserInMySQLSuccess(signUpUser));
             history.push('/')
         }
     } catch (error) {
-        yield put(signUpUserInFirebaseFailure(error));
+        yield put(signUpUserInMySQLFailure(error));
     }
 }
 
 /**
- * Signin User In Firebase
+ * Signin User In MySQL
  */
-export function* signinUserInFirebase() {
+export function* signinUserInMySQL() {
     yield takeEvery(LOGIN_USER, signInUserWithEmailPassword);
 }
 
@@ -229,21 +173,7 @@ export function* signInWithGoogle() {
 }
 
 /**
- * Signin User With Twitter
- */
-export function* signInWithTwitter() {
-    yield takeEvery(LOGIN_TWITTER_USER, signinUserWithTwitterAccount);
-}
-
-/**
- * Signin User With Github
- */
-export function* signInWithGithub() {
-    yield takeEvery(LOGIN_GITHUB_USER, signinUserWithGithubAccount);
-}
-
-/**
- * Signout User From Firebase
+ * Signout User From MySQL
  */
 export function* signOutUser() {
     yield takeEvery(LOGOUT_USER, signOut);
@@ -261,11 +191,9 @@ export function* createUserAccount() {
  */
 export default function* rootSaga() {
     yield all([
-        fork(signinUserInFirebase),
+        fork(signinUserInMySQL),
         fork(signInWithFacebook),
         fork(signInWithGoogle),
-        fork(signInWithTwitter),
-        fork(signInWithGithub),
         fork(signOutUser),
         fork(createUserAccount)
     ]);

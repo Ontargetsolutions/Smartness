@@ -46,7 +46,10 @@ class SidebarContent extends Component {
                     </List>
                     <List
                         className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.modules" /></ListSubheader>}
+                        subheader={
+                            <ListSubheader className="side-title" component="li">
+                                <IntlMessages id="sidebar.admin" />
+                            </ListSubheader>}
                     >
                         {sidebarMenus.category2.map((menu, key) => (
                             <NavMenuItem
@@ -58,7 +61,10 @@ class SidebarContent extends Component {
                     </List>
                     <List
                         className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.component" /></ListSubheader>}
+                        subheader={
+                            <ListSubheader className="side-title" component="li">
+                                <IntlMessages id="sidebar.locations" />
+                            </ListSubheader>}
                     >
                         {sidebarMenus.category3.map((menu, key) => (
                             <NavMenuItem
@@ -70,37 +76,16 @@ class SidebarContent extends Component {
                     </List>
                     <List
                         className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.features" /></ListSubheader>}
+                        subheader={
+                            <ListSubheader className="side-title" component="li">
+                                <IntlMessages id="sidebar.devices" />
+                            </ListSubheader>}
                     >
                         {sidebarMenus.category4.map((menu, key) => (
                             <NavMenuItem
                                 menu={menu}
                                 key={key}
                                 onToggleMenu={() => this.toggleMenu(menu, 'category4')}
-                            />
-                        ))}
-                    </List>
-                    <List
-                        className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.applications" /></ListSubheader>}
-                    >
-                        {sidebarMenus.category5.map((menu, key) => (
-                            <NavMenuItem
-                                menu={menu}
-                                key={key}
-                                onToggleMenu={() => this.toggleMenu(menu, 'category5')}
-                            />
-                        ))}
-                    </List>
-                    <List
-                        className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.extensions" /></ListSubheader>}
-                    >
-                        {sidebarMenus.category6.map((menu, key) => (
-                            <NavMenuItem
-                                menu={menu}
-                                key={key}
-                                onToggleMenu={() => this.toggleMenu(menu, 'category6')}
                             />
                         ))}
                     </List>

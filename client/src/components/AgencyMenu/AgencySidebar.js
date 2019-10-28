@@ -44,66 +44,6 @@ class AgencySidebar extends Component {
                      />
                   ))}
                </List>
-               <List
-                  className="rct-mainMenu p-0 m-0 list-unstyled"
-                  subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.modules" /></ListSubheader>}
-               >
-                  {agencySidebarMenu.category2.map((menu, key) => (
-                     <AgencySidebarMenuItem
-                        menu={menu}
-                        key={key}
-                        onToggleAgencyMenu={() => this.toggleMenu(menu, 'category2')}
-                     />
-                  ))}
-               </List>
-               <List
-                  className="rct-mainMenu p-0 m-0 list-unstyled"
-                  subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.component" /></ListSubheader>}
-               >
-                  {agencySidebarMenu.category3.map((menu, key) => (
-                     <AgencySidebarMenuItem
-                        menu={menu}
-                        key={key}
-                        onToggleAgencyMenu={() => this.toggleMenu(menu, 'category3')}
-                     />
-                  ))}
-               </List>
-               <List
-                  className="rct-mainMenu p-0 m-0 list-unstyled"
-                  subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.features" /></ListSubheader>}
-               >
-                  {agencySidebarMenu.category4.map((menu, key) => (
-                     <AgencySidebarMenuItem
-                        menu={menu}
-                        key={key}
-                        onToggleAgencyMenu={() => this.toggleMenu(menu, 'category4')}
-                     />
-                  ))}
-               </List>
-               <List
-                  className="rct-mainMenu p-0 m-0 list-unstyled"
-                  subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.applications" /></ListSubheader>}
-               >
-                  {agencySidebarMenu.category5.map((menu, key) => (
-                     <AgencySidebarMenuItem
-                        menu={menu}
-                        key={key}
-                        onToggleAgencyMenu={() => this.toggleMenu(menu, 'category5')}
-                     />
-                  ))}
-					</List>
-					<List
-						className="rct-mainMenu p-0 m-0 list-unstyled"
-						subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.applications" /></ListSubheader>}
-					>
-						{agencySidebarMenu.category6.map((menu, key) => (
-							<AgencySidebarMenuItem
-								menu={menu}
-								key={key}
-								onToggleAgencyMenu={() => this.toggleMenu(menu, 'category5')}
-							/>
-						))}
-					</List>
             </nav>
          </div>
       );

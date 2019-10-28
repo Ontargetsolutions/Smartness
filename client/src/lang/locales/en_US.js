@@ -760,5 +760,18 @@ module.exports = {
    "sidebar.projects": "projects",
    "sidebar.projectDetail": "project Detail",
    "sidebar.clients": "clients",
-   "sidebar.reports": "reports"
+   "sidebar.reports": "reports",
+   "sidebar.dashboard": "Dashboard",
+   "sidebar.devices": "Devices",
+   "sidebar.irisys": "Irisys",
+   "sidebar.thermo": "Thermo",
+   "sidebar.user": "User",
+   "sidebar.rol": "Rol",
+   "sidebar.place": "Place",
+   "sidebar.location": "Location",
+   "sidebar.sublocation": "Sublocation",
+   "sidebar.locations": "Locations",
+   "sidebar.admin": "Admin"
+
+
 }

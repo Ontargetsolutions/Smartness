@@ -9,12 +9,12 @@ import 'firebase/database';
 
 // Initialize Firebase 
 const config = {
-   apiKey: "AIzaSyCeOf2HbY00AFE4lii2qB-IsOXClugL8pU", // Your Api key will be here
-   authDomain: "ontarget-d0451.firebaseapp.com", // Your auth domain
-   databaseURL: "https://ontarget-d0451.firebaseio.com", // data base url
-   projectId: "ontarget-d0451", // project id
-   storageBucket: "ontarget-d0451.appspot.com", // storage bucket
-   messagingSenderId: "G-CYFD2GT63R" // messaging sender id
+   apiKey: "AIzaSyD_2FLh1f_BJyKdzeqMvF-oB9Av2cLG6ps", // Your Api key will be here
+   authDomain: "reactify-61b82.firebaseapp.com", // Your auth domain
+   databaseURL: "https://reactify-61b82.firebaseio.com", // data base url
+   projectId: "reactify-61b82", // project id
+   storageBucket: "", // storage bucket
+   messagingSenderId: "598228895769" // messaging sender id
 };
 
 firebase.initializeApp(config);
@@ -22,15 +22,11 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-const githubAuthProvider = new firebase.auth.GithubAuthProvider();
-const twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
 const database = firebase.database();
 
 export {
    auth,
    googleAuthProvider,
-   githubAuthProvider,
    facebookAuthProvider,
-   twitterAuthProvider,
    database
 };

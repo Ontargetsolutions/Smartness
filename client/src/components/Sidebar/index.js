@@ -24,7 +24,7 @@ class Sidebar extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		const { enableSidebarBackgroundImage, selectedSidebarImage, isDarkSidenav, locale } = this.props;
+		const { enableSidebarBackgroundImage, selectedSidebarImage, isDarkSidenav,locale } = this.props;
 		if (enableSidebarBackgroundImage !== nextProps.enableSidebarBackgroundImage || selectedSidebarImage !== nextProps.selectedSidebarImage || isDarkSidenav !== nextProps.isDarkSidenav || locale) {
 			return true
 		} else {

@@ -44,7 +44,7 @@
 				"sass-loader": "^6.0.7",
 				"uglifyjs-webpack-plugin": "^1.2.5",
 				"url-loader": "^1.0.1",
-				"webpack-bundle-analyzer": "2.11.1"
+				"webpack-bundle-analyzer": "3.3.2"
 		},
 		"dependencies": {
 				"@amcharts/amcharts4": "^4.5.9",

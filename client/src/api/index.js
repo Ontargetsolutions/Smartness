@@ -20,8 +20,8 @@ export default {
    logout: () => {
       return axios.get('/api/logout')
     },
-   register: data =>{
-      return axios.post('api/register', data)
+   register: data => {
+      return axios.post('/register', data)
    } 
 }
 

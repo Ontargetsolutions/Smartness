@@ -8,5 +8,5 @@ module.exports = app => {
 
   app.get ('/api/logout', controller.auth.logout);
 
-  app.get ('/api/register', controller.auth.register);
+  app.post ('/register', controller.auth.register);
 };

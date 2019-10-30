@@ -4,26 +4,27 @@ const bycript = require ('bcrypt');
 module.exports = {
   register: (req, res) => {
     const password = req.body.password;
-    const username = req.body.username;
+    const email = req.body.email;
     const salt = bycript.genSaltSync (10);
     const hash = bycript.hashSync (password, salt);
 
-    if (!username || !password) {
+
+    if (!email || !password) {
       res.status (401).send ({error: 'You must provide username and password'});
     } else {
       // Create entry in Users table
       db.Users
         .create ({
-          username: username,
-          password: hash,
+          Email: req.body.email,
+          Password: hash,
         })
         .then (res => {
           let newUser = res.dataValues;
           req.login (newUser, err => {
-            res.redirect ('/app');
+            // res.redirect ('/app');
           });
         })
-        .catch (err => sendError (err, res));
+        // .catch (err => sendError (err, res));
     }
   },
 

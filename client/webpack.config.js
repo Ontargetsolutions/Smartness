@@ -158,7 +158,7 @@ module.exports = {
     compress: true,
     port: 3000, // port number
     historyApiFallback: true,
-    quiet: true,
+    quiet: false,
     proxy: [
       {
         context: ['/'],

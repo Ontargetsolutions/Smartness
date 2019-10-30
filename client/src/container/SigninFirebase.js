@@ -22,18 +22,14 @@ import AppConfig from 'Constants/AppConfig';
 
 // redux action
 import {
-   signinUserInFirebase,
+   signinUserInMySQL,
    signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
+   signinUserWithGoogle
 } from 'Actions';
 
 //Auth File
 import Auth from '../Auth/Auth';
 import { Fab } from '@material-ui/core';
-
-const auth = new Auth();
 
 class Signin extends Component {
 
@@ -47,7 +43,7 @@ class Signin extends Component {
 	 */
    onUserLogin() {
       if (this.state.email !== '' && this.state.password !== '') {
-         this.props.signinUserInFirebase(this.state, this.props.history);
+         this.props.signinUserInMySQL(this.state, this.props.history);
       }
    }
 
@@ -58,10 +54,6 @@ class Signin extends Component {
       this.props.history.push('/signup');
    }
 
-   //Auth0 Login
-   loginAuth0() {
-      auth.login();
-   }
 
    render() {
       const { email, password } = this.state;
@@ -135,14 +127,6 @@ class Signin extends Component {
                             			</Button>
                                  </FormGroup>
                                  <FormGroup className="mb-15">
-                                    <Button
-                                       variant="contained"
-                                       className="btn-info btn-block text-white w-100"
-                                       size="large"
-                                       onClick={() => this.loginAuth0()}
-                                    >
-                                       Sign In With Auth0
-                            			</Button>
                                  </FormGroup>
                               </Form>
                               <p className="mb-20">or sign in with</p>
@@ -157,18 +141,6 @@ class Signin extends Component {
                                  onClick={() => this.props.signinUserWithGoogle(this.props.history)}
                               >
                                  <i className="zmdi zmdi-google"></i>
-                              </Fab>
-                              <Fab variant="round" size="small"
-                                 className="btn-twitter mr-15 mb-20 text-white"
-                                 onClick={() => this.props.signinUserWithTwitter(this.props.history)}
-                              >
-                                 <i className="zmdi zmdi-twitter"></i>
-                              </Fab>
-                              <Fab variant="round" size="small"
-                                 className="btn-instagram mr-15 mb-20 text-white"
-                                 onClick={() => this.props.signinUserWithGithub(this.props.history)}
-                              >
-                                 <i className="zmdi zmdi-github-alt"></i>
                               </Fab>
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p className="mb-0"><a target="_blank" href="#/terms-condition" className="text-muted">Terms of Service</a></p>
@@ -193,9 +165,7 @@ const mapStateToProps = ({ authUser }) => {
 }
 
 export default connect(mapStateToProps, {
-   signinUserInFirebase,
+   signinUserInMySQL,
    signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
+   signinUserWithGoogle
 })(Signin);

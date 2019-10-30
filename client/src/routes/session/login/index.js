@@ -21,11 +21,9 @@ import AppConfig from 'Constants/AppConfig';
 
 // redux action
 import {
-   signinUserInFirebase,
+   signinUserInMySQL,
    signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
+   signinUserWithGoogle
 } from 'Actions';
 
 class Signin extends Component {
@@ -40,7 +38,7 @@ class Signin extends Component {
     */
    onUserLogin() {
       if (this.state.email !== '' && this.state.password !== '') {
-         this.props.signinUserInFirebase(this.state, this.props.history);
+         this.props.signinUserInMySQL(this.state, this.props.history);
       }
    }
 
@@ -119,18 +117,6 @@ class Signin extends Component {
                               >
                                  <i className="zmdi zmdi-google"></i>
                               </Fab>
-                              <Fab variant="round" size="small"
-                                 className="btn-twitter mr-15 mb-20 text-white"
-                                 onClick={() => this.props.signinUserWithTwitter(this.props.history)}
-                              >
-                                 <i className="zmdi zmdi-twitter"></i>
-                              </Fab>
-                              <Fab variant="round" size="small"
-                                 className="btn-instagram mr-15 mb-20 text-white"
-                                 onClick={() => this.props.signinUserWithGithub(this.props.history)}
-                              >
-                                 <i className="zmdi zmdi-github-alt"></i>
-                              </Fab>
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p><a target="_blank" href="#/terms-condition" className="text-muted">Terms of Service</a></p>
                            </div>
@@ -154,9 +140,7 @@ const mapStateToProps = ({ authUser }) => {
 }
 
 export default connect(mapStateToProps, {
-   signinUserInFirebase,
+   signinUserInMySQL,
    signinUserWithFacebook,
-   signinUserWithGoogle,
-   signinUserWithGithub,
-   signinUserWithTwitter
+   signinUserWithGoogle
 })(Signin);

@@ -56,36 +56,36 @@ class LanguageProvider extends Component {
 		const { locale, languages } = this.props;
 		return (
 			<Dropdown nav className="list-inline-item language-dropdown tour-step-5" isOpen={this.state.langDropdownOpen} toggle={this.toggle}>
-					<DropdownToggle caret nav className="header-icon language-icon">
-						<Tooltip title="Languages" placement="bottom">
-							<img src={require(`Assets/flag-icons/${locale.icon}.png`)} className="mr-10" width="25" height="16" alt="lang-icon" />
-						</Tooltip>
-					</DropdownToggle>
-					<DropdownMenu>
-						<div className="dropdown-content">
-							<div className="dropdown-top d-flex justify-content-between rounded-top bg-primary">
-									<span className="text-white font-weight-bold">Languages</span>
-									<Badge color="warning">3 NEW</Badge>
-							</div>
-							<Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={280}>
-								<ul className="list-unstyled mb-0 dropdown-list">
-									{languages.map((language, key) => (
-										<li key={key} onClick={() => this.onChangeLanguage(language)}>
-											<a href="#">
-													<img
-														src={require(`Assets/flag-icons/${language.icon}.png`)} className="mr-10"
-														width="25"
-														height="16"
-														alt="lang-icon"
-													/>
-													{language.name}
-											</a>
-										</li>
-									))}
-								</ul>
-							</Scrollbars>
+				<DropdownToggle caret nav className="header-icon language-icon">
+					<Tooltip title="Languages" placement="bottom">
+						<img src={require(`Assets/flag-icons/${locale.icon}.png`)} className="mr-10" width="25" height="16" alt="lang-icon" />
+					</Tooltip>
+				</DropdownToggle>
+				<DropdownMenu>
+					<div className="dropdown-content">
+						<div className="dropdown-top d-flex justify-content-between rounded-top bg-primary">
+							<span className="text-white font-weight-bold">Languages</span>
+							<Badge color="warning">3 NEW</Badge>
 						</div>
-					</DropdownMenu>
+						<Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={280}>
+							<ul className="list-unstyled mb-0 dropdown-list">
+								{languages.map((language, key) => (
+									<li key={key} onClick={() => this.onChangeLanguage(language)}>
+										<a href="#" onClick={e => e.preventDefault()}>
+											<img
+												src={require(`Assets/flag-icons/${language.icon}.png`)} className="mr-10"
+												width="25"
+												height="16"
+												alt="lang-icon"
+											/>
+											{language.name}
+										</a>
+									</li>
+								))}
+							</ul>
+						</Scrollbars>
+					</div>
+				</DropdownMenu>
 			</Dropdown>
 		);
 	}
@@ -93,10 +93,10 @@ class LanguageProvider extends Component {
 
 // map state to props
 const mapStateToProps = ({ settings }) => {
-    return settings
+	return settings
 };
 
 export default connect(mapStateToProps, {
-    setLanguage,
-    rtlLayoutAction
+	setLanguage,
+	rtlLayoutAction
 })(LanguageProvider);

@@ -772,6 +772,4 @@ module.exports = {
    "sidebar.sublocation": "Sublocation",
    "sidebar.locations": "Locations",
    "sidebar.admin": "Admin"
-
-
 }

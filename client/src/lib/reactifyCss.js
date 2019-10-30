@@ -27,10 +27,8 @@ import 'video-react/styles/scss/video-react.scss';
 import 'cropperjs/dist/cropper.css';
 //Dropzone
 import 'react-dropzone-component/styles/filepicker.css';
-import 'dropzone/dist/min/dropzone.min.css'
-
+import 'dropzone/dist/min/dropzone.min.css';
 //react table
 import 'react-table/react-table.css';
-
 // Custom Style File
 import 'Assets/scss/_style.scss';

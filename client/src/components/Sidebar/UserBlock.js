@@ -12,7 +12,7 @@ import { NotificationManager } from 'react-notifications';
 import SupportPage from '../Support/Support';
 
 // redux action
-import { logoutUserFromMySQL } from 'Actions';
+import { logoutUserFromFirebase } from 'Actions';
 
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
@@ -27,8 +27,9 @@ class UserBlock extends Component {
 	/**
 	 * Logout User
 	 */
-	logoutUser() {
-		this.props.logoutUserFromMySQL();
+	logoutUser(e) {
+		e.preventDefault();
+		this.props.logoutUserFromFirebase();
 	}
 
 	/**
@@ -120,7 +121,7 @@ class UserBlock extends Component {
 									</Link>
 								</li>
 								<li className="border-top">
-									<a href="#">
+									<a href="#" onClick={(e) => this.logoutUser(e)}>
 										<i className="zmdi zmdi-power text-danger mr-3"></i>
 										<IntlMessages id="widgets.logOut" />
 									</a>
@@ -145,5 +146,5 @@ const mapStateToProps = ({ settings }) => {
 }
 
 export default connect(mapStateToProps, {
-	logoutUserFromMySQL
+	logoutUserFromFirebase
 })(UserBlock);

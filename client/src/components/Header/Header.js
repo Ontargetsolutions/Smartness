@@ -22,8 +22,14 @@ import { collapsedSidebarAction } from 'Actions';
 import { getAppLayout } from "Helpers/helpers";
 
 // components
+import Notifications from './Notifications';
+import ChatSidebar from './ChatSidebar';
+import DashboardOverlay from '../DashboardOverlay/DashboardOverlay';
+import LanguageProvider from './LanguageProvider';
 import SearchForm from './SearchForm';
+import QuickLinks from './QuickLinks';
 import MobileSearchForm from './MobileSearchForm';
+import Cart from './Cart';
 
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
@@ -42,7 +48,7 @@ class Header extends Component {
 	}
 
 	// open dashboard overlay
-	openDashboardOverlay() {
+	openDashboardOverlay(e) {
 		$('.dashboard-overlay').toggleClass('d-none');
 		$('.dashboard-overlay').toggleClass('show');
 		if ($('.dashboard-overlay').hasClass('show')) {
@@ -50,6 +56,7 @@ class Header extends Component {
 		} else {
 			$('body').css('overflow', '');
 		}
+		e.preventDefault();
 	}
 
 	// close dashboard overlay
@@ -76,7 +83,7 @@ class Header extends Component {
 			$('.dashboard-overlay').addClass('d-none');
 			$('body').css('overflow', '');
 		});
-		const { horizontalMenu, agencyMenu } = this.props;
+		const { horizontalMenu, agencyMenu, location } = this.props;
 		return (
 			<AppBar position="static" className="rct-header">
 				<Toolbar className="d-flex justify-content-between w-100 pl-0">
@@ -109,6 +116,7 @@ class Header extends Component {
 										</Tooltip>
 									</li>
 								}
+								{!horizontalMenu && <QuickLinks />}
 								<li className="list-inline-item search-icon d-inline-block">
 									<SearchForm />
 									<IconButton mini="true" className="search-icon-btn" onClick={() => this.openMobileSearchForm()}>
@@ -123,6 +131,32 @@ class Header extends Component {
 						}
 					</div>
 					<ul className="navbar-right list-inline mb-0">
+						<li className="list-inline-item summary-icon">
+							<Tooltip title="Summary" placement="bottom">
+								<a href="#" className="header-icon tour-step-3" onClick={(e) => this.openDashboardOverlay(e)}>
+									<i className="zmdi zmdi-info-outline"></i>
+								</a>
+							</Tooltip>
+						</li>
+						{!horizontalMenu &&
+							<li className="list-inline-item">
+								<Tooltip title="Upgrade" placement="bottom">
+									<Button component={Link} to={`/${getAppLayout(location)}/pages/pricing`} variant="contained" className="upgrade-btn tour-step-4 text-white" color="primary">
+										<IntlMessages id="widgets.upgrade" />
+									</Button>
+								</Tooltip>
+							</li>
+						}
+						<LanguageProvider />
+						<Notifications />
+						<Cart />
+						<li className="list-inline-item setting-icon">
+							<Tooltip title="Chat" placement="bottom">
+								<IconButton aria-label="settings" onClick={() => this.setState({ customizer: true })}>
+									<i className="zmdi zmdi-comment"></i>
+								</IconButton>
+							</Tooltip>
+						</li>
 						<li className="list-inline-item">
 							<Tooltip title="Full Screen" placement="bottom">
 								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>
@@ -131,7 +165,17 @@ class Header extends Component {
 							</Tooltip>
 						</li>
 					</ul>
+					<Drawer
+						anchor={'right'}
+						open={this.state.customizer}
+						onClose={() => this.setState({ customizer: false })}
+					>
+						<ChatSidebar />
+					</Drawer>
 				</Toolbar>
+				<DashboardOverlay
+					onClose={() => this.closeDashboardOverlay()}
+				/>
 			</AppBar>
 		);
 	}

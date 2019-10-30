@@ -83,7 +83,7 @@ class App extends Component {
       }
       return (
          <RctThemeProvider>
-            <NotificationContainer />
+         <NotificationContainer />
             <InitialPath
                path={`${match.url}app`}
                authUser={user}

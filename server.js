@@ -15,7 +15,7 @@ const db = require('./models');
 const app = express();
 
 // Import routes
-// const routes = require('./routes/apiRoutes');
+const routes = require('./routes/apiRoutes');
 
 // Set Listening Port
 const PORT = process.env.PORT || 5000;
@@ -38,7 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Call routes
-// routes(app);
+routes(app);
 
 // If the application is running in the production environment,
 if (process.env.NODE_ENV === 'production') {

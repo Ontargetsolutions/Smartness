@@ -148,8 +148,8 @@ class Header extends Component {
 							</li>
 						}
 						<LanguageProvider />
-						<Notifications />
-						<Cart />
+						{/* <Notifications /> */}
+						{/* <Cart /> */}
 						<li className="list-inline-item setting-icon">
 							<Tooltip title="Chat" placement="bottom">
 								<IconButton aria-label="settings" onClick={() => this.setState({ customizer: true })}>
@@ -170,7 +170,7 @@ class Header extends Component {
 						open={this.state.customizer}
 						onClose={() => this.setState({ customizer: false })}
 					>
-						<ChatSidebar />
+						{/* <ChatSidebar /> */}
 					</Drawer>
 				</Toolbar>
 				<DashboardOverlay

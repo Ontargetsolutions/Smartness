@@ -51,7 +51,7 @@ export default class EcommerceDashboard extends Component {
 					<meta name="description" content="Reactify Ecommerce Dashboard" />
 				</Helmet>
 				<PageTitleBar title={<IntlMessages id="sidebar.ecommerce" />} match={match} />
-				<div className="row">
+				{/* <div className="row">
 					<div className="col-sm-6 col-md-4 w-xs-half-block">
 						<VisitorAreaChartWidget
 							data={visitorsData}
@@ -68,8 +68,8 @@ export default class EcommerceDashboard extends Component {
 							data={salesData}
 						/>
 					</div>
-				</div>
-				<div className="row">
+				</div> */}
+				{/* <div className="row">
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-4 col-lg-4 w-xs-full"
 						heading={<IntlMessages id="widgets.supportRequest" />}
@@ -91,8 +91,8 @@ export default class EcommerceDashboard extends Component {
 					>
 						<RecentOrdersWidget />
 					</RctCollapsibleCard>
-				</div>
-				<div className="row">
+				</div> */}
+				{/* <div className="row">
 					<RctCollapsibleCard
 						customClasses="trafic-bar-chart"
 						colClasses="col-sm-12 col-md-12 col-lg-5 d-sm-full"
@@ -124,8 +124,8 @@ export default class EcommerceDashboard extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
-				<div className="row">
+				</div> */}
+				{/* <div className="row">
 					<RctCollapsibleCard
 						colClasses="col-sm-12 col-md-4 col-lg-4 w-xs-full"
 						heading={<IntlMessages id="widgets.productReports" />}
@@ -153,7 +153,7 @@ export default class EcommerceDashboard extends Component {
 					>
 						<TopSellingWidget data={topSellingProducts} />
 					</RctCollapsibleCard>
-				</div>
+				</div> */}
 			</div>
 		)
 	}

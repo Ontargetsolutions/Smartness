@@ -28,7 +28,7 @@ export const signinUserInMySQL = (user, history) => ({
  * Redux Action Signin User Success
  */
 export const signinUserSuccess = (user) => ({
-    type: LOGIN_USER_SUCCESS,
+    type: LOGIN_USER_SUCCESS, 
     payload: user
 });
 

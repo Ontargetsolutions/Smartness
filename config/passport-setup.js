@@ -20,11 +20,11 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(
-    new LocalStrategy((username, password, done) => {
+    new LocalStrategy((email, password, done) => {
       // Retrieve a User object from the database using Sequelize
       // by username
       //where: { username: username }
-      db.User.findOne({ where: { username: username } }).then(res => {
+      db.User.findOne({ where: { email: email } }).then(res => {
         //console.log(res);
         // res is the response from Sequelize in the promise
         // If there's no response, give error message
@@ -41,7 +41,7 @@ passport.use(
           if (res) {
             //console.log(user);
   
-            usernamed = user.username;
+            email = user.email;
             return done(null, user);
           } else {
             return done(null, false, { message: "Incorrect password" });

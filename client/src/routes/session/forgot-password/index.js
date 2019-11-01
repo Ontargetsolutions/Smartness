@@ -3,7 +3,6 @@ import { Form, FormGroup, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 
@@ -24,17 +23,7 @@ export default class Forgotpwd extends Component {
                                  <img src={require('Assets/img/site-logo.png')} alt="session-logo" className="img-fluid" width="110" height="35" />
                               </Link>
                            </div>
-                           <div className="session-social-icon">
-                              <IconButton className="text-white" aria-label="facebook">
-                                 <i className="zmdi zmdi-facebook"></i>
-                              </IconButton>
-                              <IconButton className="text-white" aria-label="twitter">
-                                 <i className="zmdi zmdi-twitter"></i>
-                              </IconButton>
-                              <IconButton className="text-white" aria-label="google">
-                                 <i className="zmdi zmdi-google"></i>
-                              </IconButton>
-                           </div>
+                        
                         </div>
                      </div>
                   </Toolbar>
@@ -55,7 +44,7 @@ export default class Forgotpwd extends Component {
                               <FormGroup>
                                  <Button variant="contained" className="btn-info text-white btn-block btn-large w-100">Reset Password</Button>
                               </FormGroup>
-                              <Button component={Link} to="/session/login" className="btn-dark btn-block btn-large text-white w-100">Already having account?  Login</Button>
+                              <Button component={Link} to="/signin" className="btn-dark btn-block btn-large text-white w-100">Already having account?  Login</Button>
                            </Form>
                         </div>
                      </div>

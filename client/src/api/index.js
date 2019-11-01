@@ -15,12 +15,14 @@ import axios from 'axios';
 export default {
    
    login: data => {
-      return axios.post('/api/login', data)
+      console.log(`dentro de la llamada a la api ${JSON.stringify(data)}`)
+      return axios.post('api/signin', data)
    },
    logout: () => {
       return axios.get('/api/logout')
     },
    register: data => {
+      console.log(`data in api: ${JSON.stringify(data)}`)
       return axios.post('/register', data)
    } 
 }

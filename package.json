@@ -9,7 +9,6 @@
     "server": "nodemon server.js",
     "client": "cd client && npm start",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
-    
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +23,8 @@
     "express-session": "^1.17.0",
     "mysql2": "^1.7.0",
     "passport": "^0.4.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
     "prop-types": "^15.7.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",

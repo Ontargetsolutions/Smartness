@@ -25,17 +25,12 @@ import {
 /**
  * Sigin User With Email and Password Request
  */
-// const signInUserWithEmailPasswordRequest = async (email, password) =>
-//   await API
-//     .login (email, password)
-//     .then (authUser => authUser)
-//     .catch (error => error);
-
 const signInUserWithEmailPasswordRequest = async (email, password) =>
-  await auth
-    .signInWithEmailAndPassword (email, password)
+  await API
+    .login ({password: password, username: email})
     .then (authUser => authUser)
     .catch (error => error);
+
 
 /**
  * Signin User With Facebook Request
@@ -65,8 +60,8 @@ const signOutRequest = async () =>
  * Create User
  */
 
-const createUserWithEmailPasswordRequest = async (email, password) =>
-  await API.register ({password:password, email:email})
+const createUserWithEmailPasswordRequest = async (email, password, name, telephone) =>
+  await API.register ({password:password, email:email, name: name, telephone: telephone})
     .then (authUser => authUser)
     .catch (error => error);
 
@@ -85,7 +80,7 @@ function* signInUserWithEmailPassword({payload}) {
     if (signInUser.message) {
       yield put (signinUserFailure (signInUser.message));
     } else {
-      localStorage.setItem ('user_id', signInUser.uid);
+      localStorage.setItem ('user_id', signInUser.data.id);
       yield put (signinUserSuccess (signInUser));
       history.push ('/');
     }
@@ -147,23 +142,20 @@ function* signOut () {
  * Create User In MySQL
  */
 function* createUserWithEmailPassword({payload}) {
-  console.log (`payload: ${JSON.stringify (payload)}`);
-  const {email, password} = payload.user;
-  console.log (
-    `email y pasword en la saga que llama a otra saga : ${email} y password: ${password}`
-  );
+  const {email, password, name, telephone} = payload.user;
   const {history} = payload;
   try {
     const signUpUser = yield call (
       createUserWithEmailPasswordRequest,
       email,
-      password
+      password,
+      name,
+      telephone
     );
-    console.log (`sigupuser ne la saga: ${signUpUser} `);
-    if (signUpUser.message) {
+    if (signUpUsermessage) {
       yield put (signUpUserInMySQLFailure (signUpUser.message));
     } else {
-      localStorage.setItem ('user_id', signUpUser.uid);
+      localStorage.setItem ('user_id', signUpUser.data.id);
       yield put (signUpUserInMySQLSuccess (signUpUser));
       history.push ('/');
     }

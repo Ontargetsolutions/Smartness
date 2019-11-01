@@ -14,6 +14,7 @@ import { Fab } from '@material-ui/core';
 
 // components
 import { SessionSlider } from 'Components/Widgets';
+import { NotificationManager } from 'react-notifications';
 
 // app config
 import AppConfig from 'Constants/AppConfig';
@@ -30,23 +31,25 @@ class SignupMySQL extends Component {
    state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      telephone: '',
+      errorMessage: ''
    }
 
 	/**
 	 * On User Signup
 	 */
    onUserSignUp() {
-      const { email, password } = this.state;
-      console.log(`estos son los email para signup: ${email} y password: ${password}`);
-      if (email !== '' && password !== '') {
-         console.log(`email in on usersignup ${email} and password ${password}`)
-         this.props.signupUserInMySQL({ email, password }, this.props.history);
+      const { email, password, name, telephone } = this.state;
+      if (email !== '' && password !== ''&& name !== ''&& telephone !== '') {
+         this.props.signupUserInMySQL({ email, password, name, telephone }, this.props.history);
+      }else {
+         NotificationManager.error('You must to fill all the data required');
       }
    }
 
    render() {
-      const { name, email, password } = this.state;
+      const { name, email, password,  telephone } = this.state;
       const { loading } = this.props;
       return (
          <QueueAnim type="bottom" duration={2000}>
@@ -101,7 +104,7 @@ class SignupMySQL extends Component {
                                  </FormGroup>
                                  <FormGroup className="has-wrapper">
                                     <Input
-                                       type="mail"
+                                       type="email"
                                        value={email}
                                        name="user-mail"
                                        id="user-mail"
@@ -123,15 +126,28 @@ class SignupMySQL extends Component {
                                     />
                                     <span className="has-icon"><i className="ti-lock"></i></span>
                                  </FormGroup>
+                                 <FormGroup className="has-wrapper">
+                                    <Input
+                                       type="text"
+                                       value={telephone}
+                                       name="user-telephone"
+                                       id="user-telephone"
+                                       className="has-input input-lg"
+                                       placeholder="Enter Your phone number"
+                                       onChange={(e) => this.setState({ telephone: e.target.value })}
+                                    />
+                                    <span className="has-icon"><i className="ti-mobile"></i></span>
+                                 </FormGroup>
                                  <FormGroup className="mb-15">
                                     <Button
                                        className="btn-info text-white btn-block w-100"
                                        variant="contained"
                                        size="large"
                                        onClick={() => this.onUserSignUp()}>
-                                       Sign Up jeloou
+                                       Sign Up
                             			</Button>
                                  </FormGroup>
+                                 
                               </Form>
                               <p className="mb-20">or sign in with</p>
                               <Fab variant="round" size="small"

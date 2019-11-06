@@ -13,13 +13,15 @@ import {
     SIGNUP_USER_FAILURE,
     LOGIN_FACEBOOK_USER,
     LOGIN_GOOGLE_USER,
+    LOGIN_TWITTER_USER,
+    LOGIN_GITHUB_USER,
     LOGOUT_USER_FAILURE
 } from './types';
 
 /**
- * Redux Action To Sigin User With MySQL
+ * Redux Action To Sigin User With Firebase
  */
-export const signinUserInMySQL = (user, history) => ({
+export const signinUserInFirebase = (user, history) => ({
     type: LOGIN_USER,
     payload: { user, history }
 });
@@ -28,14 +30,14 @@ export const signinUserInMySQL = (user, history) => ({
  * Redux Action Signin User Success
  */
 export const signinUserSuccess = (user) => ({
-    type: LOGIN_USER_SUCCESS, 
+    type: LOGIN_USER_SUCCESS,
     payload: user
 });
 
 /**
  * Redux Action To Signup User Success
  */
-export const signUpUserInMySQLSuccess = (user) => ({
+export const signUpUserInFirebaseSuccess = (user) => ({
     type: SIGNUP_USER_SUCCESS,
     payload: user
 });
@@ -43,7 +45,7 @@ export const signUpUserInMySQLSuccess = (user) => ({
 /**
  * Redux Action To Signup User Failure
  */
-export const signUpUserInMySQLFailure = (error) => ({
+export const signUpUserInFirebaseFailure = (error) => ({
     type: SIGNUP_USER_FAILURE,
     payload: error
 });
@@ -57,36 +59,36 @@ export const signinUserFailure = (error) => ({
 })
 
 /**
- * Redux Action To Signout User From  MySQL
+ * Redux Action To Signout User From  Firebase
  */
-export const logoutUserFromMySQL = () => ({
+export const logoutUserFromFirebase = () => ({
     type: LOGOUT_USER
 });
 
 /**
  * Redux Action Signout User Success
  */
-export const logoutUserFromMySQLSuccess = () => ({
+export const logoutUserFromFirebaseSuccess = () => ({
     type: LOGOUT_USER_SUCCESS
 });
 
 /**
  * Redux Action Signout User Failure
  */
-export const logoutUserFromMySQLFailure = () => ({
+export const logoutUserFromFirebaseFailure = () => ({
     type: LOGOUT_USER_FAILURE
 });
 
 /**
- * Redux Action To Signup User In MySQL
+ * Redux Action To Signup User In Firebase
  */
-export const signupUserInMySQL = (user, history) => ({
+export const signupUserInFirebase = (user, history) => ({
     type: SIGNUP_USER,
     payload: { user, history }
 })
 
 /**
- * Redux Action To Signin User In MySQL With Facebook
+ * Redux Action To Signin User In Firebase With Facebook
  */
 export const signinUserWithFacebook = (history) => ({
     type: LOGIN_FACEBOOK_USER,
@@ -94,11 +96,25 @@ export const signinUserWithFacebook = (history) => ({
 })
 
 /**
- * Redux Action To Signin User In MySQL With Google
+ * Redux Action To Signin User In Firebase With Google
  */
 export const signinUserWithGoogle = (history) => ({
     type: LOGIN_GOOGLE_USER,
     payload: history
 })
 
+/**
+ * Redux Action To Signin User In Firebase With Github
+ */
+export const signinUserWithGithub = (history) => ({
+    type: LOGIN_GITHUB_USER,
+    payload: history
+});
 
+/**
+ * Redux Action To Signin User In Firebase With Twitter
+ */
+export const signinUserWithTwitter = (history) => ({
+    type: LOGIN_TWITTER_USER,
+    payload: history
+});

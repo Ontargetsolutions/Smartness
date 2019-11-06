@@ -40,7 +40,6 @@ export default (state = INIT_STATE, action) => {
             return { ...state };
 
         case LOGOUT_USER_SUCCESS:
-            NotificationManager.success('User logged out successfully');
             return { ...state, user: null };
 
         case LOGOUT_USER_FAILURE:
@@ -51,7 +50,7 @@ export default (state = INIT_STATE, action) => {
 
         case SIGNUP_USER_SUCCESS:
             NotificationManager.success('Account Created');
-            return { ...state, loading: false, user: action.payload.data.id };
+            return { ...state, loading: false, user: action.payload.uid };
 
         case SIGNUP_USER_FAILURE:
             NotificationManager.error(action.payload);

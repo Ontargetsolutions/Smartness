@@ -55,7 +55,7 @@ const handleAuthentication = ({ location }) => {
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
  */
-const InitialPath = ({ component: Component, authUser, ...rest }) =>
+const InitialPath = ({ component: Component, ...rest, authUser }) =>
    <Route
       {...rest}
       render={props =>
@@ -78,17 +78,20 @@ class App extends Component {
          if (user === null) {
             return (<Redirect to={'/signin'} />);
          } else {
-            return (<Redirect to={'/app/dashboard'} />);
+            return (<Redirect to={'/app/dashboard/ecommerce'} />);
          }
       }
       return (
          <RctThemeProvider>
-         <NotificationContainer />
+            <NotificationContainer />
             <InitialPath
                path={`${match.url}app`}
                authUser={user}
                component={RctDefaultLayout}
             />
+            <Route path="/horizontal" component={HorizontalLayout} />
+            <Route path="/agency" component={AgencyLayout} />
+            <Route path="/boxed" component={RctBoxedLayout} />
             <Route path="/dashboard" component={CRMLayout} />
             <Route path="/signin" component={AppSignIn} />
             <Route path="/signup" component={AppSignUp} />

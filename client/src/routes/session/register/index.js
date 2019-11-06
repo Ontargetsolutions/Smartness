@@ -20,12 +20,14 @@ import AppConfig from 'Constants/AppConfig';
 
 // redux action
 import {
-   signupUserInMySQL,
+   signupUserInFirebase,
    signinUserWithFacebook,
-   signinUserWithGoogle
+   signinUserWithGoogle,
+   signinUserWithGithub,
+   signinUserWithTwitter
 } from 'Actions';
 
-class SignupMySQL extends Component {
+class SignupFirebase extends Component {
 
    state = {
       name: '',
@@ -39,7 +41,7 @@ class SignupMySQL extends Component {
    onUserSignUp() {
       const { email, password } = this.state;
       if (email !== '' && password !== '') {
-         this.props.signupUserInMySQL({ email, password }, this.props.history);
+         this.props.signupUserInFirebase({ email, password }, this.props.history);
       }
    }
 
@@ -113,6 +115,18 @@ class SignupMySQL extends Component {
                               >
                                  <i className="zmdi zmdi-google"></i>
                               </Fab>
+                              <Fab variant="round" size="small"
+                                 className="btn-twitter mr-15 mb-20 text-white"
+                                 onClick={() => this.props.signinUserWithTwitter(this.props.history)}
+                              >
+                                 <i className="zmdi zmdi-twitter"></i>
+                              </Fab>
+                              <Fab variant="round" size="small"
+                                 className="btn-instagram mr-15 mb-20 text-white"
+                                 onClick={() => this.props.signinUserWithGithub(this.props.history)}
+                              >
+                                 <i className="zmdi zmdi-github-alt"></i>
+                              </Fab>
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p><Link to="/terms-condition" className="text-muted">Terms of Service</Link></p>
                            </div>
@@ -136,7 +150,9 @@ const mapStateToProps = ({ authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-   signupUserInMySQL,
+   signupUserInFirebase,
    signinUserWithFacebook,
-   signinUserWithGoogle
-})(SignupMySQL);
+   signinUserWithGoogle,
+   signinUserWithGithub,
+   signinUserWithTwitter
+})(SignupFirebase);

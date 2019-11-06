@@ -14,7 +14,7 @@ export default class SessionSlider extends Component {
 	}
 
 	componentDidMount() {
-		// this.getSessionUsersData();
+		this.getSessionUsersData();
 	}
 
 	// session users data

@@ -131,32 +131,7 @@ class Header extends Component {
 						}
 					</div>
 					<ul className="navbar-right list-inline mb-0">
-						<li className="list-inline-item summary-icon">
-							<Tooltip title="Summary" placement="bottom">
-								<a href="#" className="header-icon tour-step-3" onClick={(e) => this.openDashboardOverlay(e)}>
-									<i className="zmdi zmdi-info-outline"></i>
-								</a>
-							</Tooltip>
-						</li>
-						{!horizontalMenu &&
-							<li className="list-inline-item">
-								<Tooltip title="Upgrade" placement="bottom">
-									<Button component={Link} to={`/${getAppLayout(location)}/pages/pricing`} variant="contained" className="upgrade-btn tour-step-4 text-white" color="primary">
-										<IntlMessages id="widgets.upgrade" />
-									</Button>
-								</Tooltip>
-							</li>
-						}
 						<LanguageProvider />
-						{/* <Notifications /> */}
-						{/* <Cart /> */}
-						<li className="list-inline-item setting-icon">
-							<Tooltip title="Chat" placement="bottom">
-								<IconButton aria-label="settings" onClick={() => this.setState({ customizer: true })}>
-									<i className="zmdi zmdi-comment"></i>
-								</IconButton>
-							</Tooltip>
-						</li>
 						<li className="list-inline-item">
 							<Tooltip title="Full Screen" placement="bottom">
 								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>
@@ -170,7 +145,7 @@ class Header extends Component {
 						open={this.state.customizer}
 						onClose={() => this.setState({ customizer: false })}
 					>
-						{/* <ChatSidebar /> */}
+						<ChatSidebar />
 					</Drawer>
 				</Toolbar>
 				<DashboardOverlay

@@ -1,9 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Users = sequelize.define('Users', {
-    Name: {
+    LastName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         len: {
           args: 3,
@@ -11,9 +11,19 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    FirstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: 3,
+          msg: 'Name must be at least 3 characters in length'
+        }
+      }
+    },
     Telephone: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       len: [1, 15]
     },
     Email: {
@@ -29,6 +39,13 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Email address must be valid'
         }
       }
+    },
+    Username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      len: [1, 200],
+      isEmail: true,
     },
     Password: {
       type: DataTypes.STRING,

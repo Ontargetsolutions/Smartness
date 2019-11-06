@@ -1,78 +1,60 @@
 const db = require ('../models/index');
-const bycript = require ('bcrypt');
-
-
-const sendError = (err, res) => {
-  if (err) {
-    res.statusCode = 500;
-    console.log(`error que se va a mandar ${err}`)
-    res.send (err);
-  }
-};
+const bycript = require ('bcryptjs');
 
 module.exports = {
   register: (req, res) => {
     const password = req.body.password;
-    const email = req.body.email;
+    const username = req.body.username;
     const salt = bycript.genSaltSync (10);
     const hash = bycript.hashSync (password, salt);
 
-    db.Users
-      .findOne ({
-        where: {Email: req.body.email},
-      })
-      .then (function (user) {
-        if (user) {
-          // res.sendError ('The email is already in use', res);
-          console.log(`dentro de donde chequea el email user: ${JSON.stringify(user)}`)
-          res.send({ message: "This email is already in use" });
-        } else {
-          db.Users
-            .create ({
-              Name: req.body.name,
-              Email: req.body.email,
-              Password: hash,
-              Active: true,
-              Telephone: req.body.telephone,
-            })
-            .then (response => {
-              let newUser = response.dataValues;
-              res.send(newUser);
-            })
-            // .catch (err => res.se);
-        }
-      });
-  },
-
-  // success: (req, res) => {
-  //   db.Users
-  //     .findOne ({where: {username: req.params.username}})
-  //     .then (response => {
-  //       res.statusCode = 200;
-  //       res.send (response);
-  //     })
-  //     .catch (err => sendError (err, res));
-  // },
-
-  login: (req, res) => {
-    console.log ('login function: ');
-    console.log (req.body);
+    if (!username || !password) {
+      res.status (401).send ({error: 'You must provide username and password'});
+    } else {
+      // Create entry in Users table
       db.Users
-        .findOne ({where: {email: req.body.username}})
-        .then (data => {
-          console.log(data);
-          if(null){
-            res.send({ message: "There is not user with those credentials" });
-          }else{
-            res.statusCode = 200;
-            res.send (data.dataValues.email);
-          }
+        .create ({
+          username: username,
+          password: hash,
+        })
+        .then (res => {
+          let newUser = res.dataValues;
+          req.login (newUser, err => {
+            res.redirect ('/app');
+          });
         })
         .catch (err => sendError (err, res));
+    }
+  },
+
+  success: (req, res) => {
+    db.Users
+      .findOne ({where: {username: req.params.username}})
+      .then (response => {
+        res.statusCode = 200;
+        res.send (response);
+      })
+      .catch (err => sendError (err, res));
+  },
+
+  login: (req, res) => {
+    console.log (req.body);
+    if (req.isAuthenticated) {
+      console.log (req.body.username);
+      db.Users
+        .findOne ({where: {username: req.body.username}})
+        .then (data => {
+          //console.log(req.body.username);
+          res.statusCode = 200;
+          res.send (data.dataValues.username);
+        })
+        .catch (err => sendError (err, res));
+    } else {
+      res.sendStatus (401);
+    }
   },
 
   logout: (req, res) => {
-    console.log ('mi logout function: ');
     req.logout ();
     if (process.env.NODE_ENV === 'production') {
       res.redirect ('/');
@@ -81,14 +63,14 @@ module.exports = {
     }
   },
 
-  // user: (req, res) => {
-  //   if (req.user) {
-  //     res.statusCode = 200;
-  //     res.send (req.user.username);
-  //   } else {
-  //     res.statusCode = 401;
-  //     res.send ();
-  //   }
-  // },
+  user: (req, res) => {
+    if (req.user) {
+      res.statusCode = 200;
+      res.send (req.user.username);
+    } else {
+      res.statusCode = 401;
+      res.send ();
+    }
+  },
   /////////////// End Auth ///////////////////////
 };

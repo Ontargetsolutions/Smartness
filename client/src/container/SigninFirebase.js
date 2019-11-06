@@ -15,14 +15,12 @@ import QueueAnim from 'rc-queue-anim';
 // components
 import {SessionSlider} from 'Components/Widgets';
 
-import {NotificationManager} from 'react-notifications';
-
 // app config
 import AppConfig from 'Constants/AppConfig';
 
 // redux action
 import {
-  signinUserInMySQL,
+  signinUserInFirebase,
   signinUserWithFacebook,
   signinUserWithGoogle,
 } from 'Actions';
@@ -31,21 +29,20 @@ import {
 import Auth from '../Auth/Auth';
 import {Fab} from '@material-ui/core';
 
+const auth = new Auth ();
+
 class Signin extends Component {
   state = {
-    email: '',
-    password: '',
+    email: 'demo@example.com',
+    password: 'test#123',
   };
 
   /**
 	 * On User Login
 	 */
   onUserLogin () {
-    const {email, password} = this.state;
     if (this.state.email !== '' && this.state.password !== '') {
-      this.props.signinUserInMySQL ({email, password}, this.props.history);
-    } else {
-      NotificationManager.error ('You must to fill all the data required');
+      this.props.signinUserInFirebase (this.state, this.props.history);
     }
   }
 
@@ -55,14 +52,12 @@ class Signin extends Component {
   onUserSignUp () {
     this.props.history.push ('/signup');
   }
-
   /**
 	 * On Forgot password
 	 */
   onForgotPassword () {
     this.props.history.push ('/session/forgot-password');
   }
-
   render () {
     const {email, password} = this.state;
     const {loading} = this.props;
@@ -115,7 +110,7 @@ class Signin extends Component {
                     <Form>
                       <FormGroup className="has-wrapper">
                         <Input
-                          type="email"
+                          type="mail"
                           value={email}
                           name="user-mail"
                           id="user-mail"
@@ -143,14 +138,14 @@ class Signin extends Component {
                           <i className="ti-lock" />
                         </span>
                       </FormGroup>
-                      
+                      <FormGroup className="mb-15">
                         <a
                           className="mr-10"
-                          onClick={() => this.onForgotPassword()}
+                          onClick={() => this.onForgotPassword ()}
                         >
                           Forgot your password?
                         </a>
-                     
+                      </FormGroup>
                       <FormGroup className="mb-15">
                         <Button
                           color="primary"
@@ -162,7 +157,6 @@ class Signin extends Component {
                           Sign In
                         </Button>
                       </FormGroup>
-                      <FormGroup className="mb-15" />
                     </Form>
                     <p className="mb-20">or sign in with</p>
                     <Fab
@@ -216,7 +210,7 @@ const mapStateToProps = ({authUser}) => {
 };
 
 export default connect (mapStateToProps, {
-  signinUserInMySQL,
+  signinUserInFirebase,
   signinUserWithFacebook,
   signinUserWithGoogle,
 }) (Signin);

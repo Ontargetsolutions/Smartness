@@ -23,7 +23,7 @@ export default class Forgotpwd extends Component {
                                  <img src={require('Assets/img/site-logo.png')} alt="session-logo" className="img-fluid" width="110" height="35" />
                               </Link>
                            </div>
-                        
+
                         </div>
                      </div>
                   </Toolbar>

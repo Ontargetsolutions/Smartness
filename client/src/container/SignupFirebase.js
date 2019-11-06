@@ -14,42 +14,39 @@ import { Fab } from '@material-ui/core';
 
 // components
 import { SessionSlider } from 'Components/Widgets';
-import { NotificationManager } from 'react-notifications';
 
 // app config
 import AppConfig from 'Constants/AppConfig';
 
 // redux action
 import {
-   signupUserInMySQL,
+   signupUserInFirebase,
    signinUserWithFacebook,
-   signinUserWithGoogle
+   signinUserWithGoogle,
+   signinUserWithGithub,
+   signinUserWithTwitter
 } from 'Actions';
 
-class SignupMySQL extends Component {
+class SignupFirebase extends Component {
 
    state = {
       name: '',
       email: '',
-      password: '',
-      telephone: '',
-      errorMessage: ''
+      password: ''
    }
 
 	/**
 	 * On User Signup
 	 */
    onUserSignUp() {
-      const { email, password, name, telephone } = this.state;
-      if (email !== '' && password !== ''&& name !== ''&& telephone !== '') {
-         this.props.signupUserInMySQL({ email, password, name, telephone }, this.props.history);
-      }else {
-         NotificationManager.error('You must to fill all the data required');
+      const { email, password } = this.state;
+      if (email !== '' && password !== '') {
+         this.props.signupUserInFirebase({ email, password }, this.props.history);
       }
    }
 
    render() {
-      const { name, email, password,  telephone } = this.state;
+      const { name, email, password } = this.state;
       const { loading } = this.props;
       return (
          <QueueAnim type="bottom" duration={2000}>
@@ -104,7 +101,7 @@ class SignupMySQL extends Component {
                                  </FormGroup>
                                  <FormGroup className="has-wrapper">
                                     <Input
-                                       type="email"
+                                       type="mail"
                                        value={email}
                                        name="user-mail"
                                        id="user-mail"
@@ -126,18 +123,6 @@ class SignupMySQL extends Component {
                                     />
                                     <span className="has-icon"><i className="ti-lock"></i></span>
                                  </FormGroup>
-                                 <FormGroup className="has-wrapper">
-                                    <Input
-                                       type="text"
-                                       value={telephone}
-                                       name="user-telephone"
-                                       id="user-telephone"
-                                       className="has-input input-lg"
-                                       placeholder="Enter Your phone number"
-                                       onChange={(e) => this.setState({ telephone: e.target.value })}
-                                    />
-                                    <span className="has-icon"><i className="ti-mobile"></i></span>
-                                 </FormGroup>
                                  <FormGroup className="mb-15">
                                     <Button
                                        className="btn-info text-white btn-block w-100"
@@ -147,7 +132,6 @@ class SignupMySQL extends Component {
                                        Sign Up
                             			</Button>
                                  </FormGroup>
-                                 
                               </Form>
                               <p className="mb-20">or sign in with</p>
                               <Fab variant="round" size="small"
@@ -161,6 +145,18 @@ class SignupMySQL extends Component {
                                  onClick={() => this.props.signinUserWithGoogle(this.props.history)}
                               >
                                  <i className="zmdi zmdi-google"></i>
+                              </Fab>
+                              <Fab variant="round" size="small"
+                                 className="btn-twitter mr-15 mb-20 text-white"
+                                 onClick={() => this.props.signinUserWithTwitter(this.props.history)}
+                              >
+                                 <i className="zmdi zmdi-twitter"></i>
+                              </Fab>
+                              <Fab variant="round" size="small"
+                                 className="btn-instagram mr-15 mb-20 text-white"
+                                 onClick={() => this.props.signinUserWithGithub(this.props.history)}
+                              >
+                                 <i className="zmdi zmdi-github-alt"></i>
                               </Fab>
                               <p className="text-muted">By signing up you agree to {AppConfig.brandName}</p>
                               <p><Link to="/terms-condition" className="text-muted">Terms of Service</Link></p>
@@ -185,7 +181,9 @@ const mapStateToProps = ({ authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-   signupUserInMySQL,
+   signupUserInFirebase,
    signinUserWithFacebook,
-   signinUserWithGoogle
-})(SignupMySQL);
+   signinUserWithGoogle,
+   signinUserWithGithub,
+   signinUserWithTwitter
+})(SignupFirebase);

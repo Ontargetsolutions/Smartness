@@ -23,13 +23,11 @@ import {
   signinUserInFirebase,
   signinUserWithFacebook,
   signinUserWithGoogle,
+  changePasswords
 } from 'Actions';
 
-//Auth File
-import Auth from '../Auth/Auth';
 import {Fab} from '@material-ui/core';
 
-const auth = new Auth ();
 
 class Signin extends Component {
   state = {
@@ -42,7 +40,7 @@ class Signin extends Component {
 	 */
   onUserLogin () {
     if (this.state.email !== '' && this.state.password !== '') {
-      this.props.signinUserInFirebase (this.state, this.props.history);
+      this.props.signinUserInFirebase (this.state, this.props.history.push('/session/forgot-password'));
     }
   }
 
@@ -50,13 +48,13 @@ class Signin extends Component {
 	 * On User Sign Up
 	 */
   onUserSignUp () {
-    this.props.history.push ('/signup');
+    this.props.history.push('/signup');
   }
   /**
 	 * On Forgot password
 	 */
   onForgotPassword () {
-    this.props.history.push ('/session/forgot-password');
+   this.props.changePasswords (this.state, this.props.history);
   }
   render () {
     const {email, password} = this.state;
@@ -138,13 +136,21 @@ class Signin extends Component {
                           <i className="ti-lock" />
                         </span>
                       </FormGroup>
-                      <FormGroup className="mb-15">
+                      {/* <FormGroup className="mb-15">
                         <a
                           className="mr-10"
                           onClick={() => this.onForgotPassword ()}
                         >
                           Forgot your password?
                         </a>
+                      </FormGroup> */}
+                      <FormGroup className="mb-15">
+                        <Button
+                          className="text-secondary mr-10 mb-10"
+                          onClick={() => this.onForgotPassword ()}
+                        >
+                          Forgot your password?
+                        </Button>
                       </FormGroup>
                       <FormGroup className="mb-15">
                         <Button
@@ -213,4 +219,5 @@ export default connect (mapStateToProps, {
   signinUserInFirebase,
   signinUserWithFacebook,
   signinUserWithGoogle,
+  changePasswords
 }) (Signin);

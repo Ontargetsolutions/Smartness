@@ -12,7 +12,8 @@ import {
     LOGIN_FACEBOOK_USER,
     LOGIN_GOOGLE_USER,
     LOGOUT_USER,
-    SIGNUP_USER
+    SIGNUP_USER,
+    CHANGE_PASSWORD,
 } from 'Actions/types';
 
 import {
@@ -21,8 +22,12 @@ import {
     signUpUserInFirebaseSuccess,
     signUpUserInFirebaseFailure,
     logoutUserFromFirebaseSuccess,
-    logoutUserFromFirebaseFailure
+    logoutUserFromFirebaseFailure,
+    changePasswords,
+    changePasswordSuccess,
+    changePasswordFailure
 } from 'Actions';
+import { stringify } from 'querystring';
 
 /**
  * Sigin User With Email and Password Request
@@ -48,6 +53,13 @@ const signInUserWithGoogleRequest = async () =>
         .then(authUser => authUser)
         .catch(error => error);
 
+/**
+* Change the password Request
+*/
+const changeThePasswordRequest = async (email) =>
+    await auth.sendPasswordResetEmail(email)
+        .then(authUser => authUser)
+        .catch(error => error);
 
 /**
  * Signout Request
@@ -154,6 +166,25 @@ function* createUserWithEmailPassword({ payload }) {
 }
 
 /**
+ * Change the password
+ */
+function* changeThePassword( payload) {
+    console.log(`en la saga grande payload ${JSON,stringify(payload)}`)
+    const  email = payload.user.email;
+    try {
+        const result = yield call(changeThePasswordRequest, email);
+        if (result.message) {
+            yield put(changePasswordSuccess(result.message));
+        } else {
+            yield put(changePasswordFailure(signUpUser));
+            history.push('/')
+        }
+    } catch (error) {
+        yield put(changePasswordFailure(error));
+    }
+}
+
+/**
  * Signin User In Firebase
  */
 export function* signinUserInFirebase() {
@@ -189,6 +220,14 @@ export function* createUserAccount() {
 }
 
 /**
+ * Change password
+ */
+export function* changePassword() {
+    console.log(`en la saga chiquita`)
+    yield takeEvery(CHANGE_PASSWORD, changeThePassword);
+}
+
+/**
  * Auth Root Saga
  */
 export default function* rootSaga() {
@@ -197,6 +236,7 @@ export default function* rootSaga() {
         fork(signInWithFacebook),
         fork(signInWithGoogle),
         fork(signOutUser),
+        fork(changePassword),
         fork(createUserAccount)
     ]);
 }
